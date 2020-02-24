@@ -3,16 +3,27 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>회의실 목록</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-content>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  
+    <!-- 회의실 헤더 -->
+    <ion-item>
+    <ion-label color="primary" >회의실 목록</ion-label>
+    <ion-label color="primary">알람 체크</ion-label>
+    </ion-item>
+  
+    <!-- 회의실 목록 -->
+    <ion-list>
+      <button ion-item *ngFor="let item of items" (click)="nextPage(item)">
+        {{ item }}
+      </button>
+    </ion-list>
+  </ion-content>
+
 </ion-content>
