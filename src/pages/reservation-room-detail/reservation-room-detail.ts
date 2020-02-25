@@ -23,23 +23,23 @@ export class ReservationRoomDetailPage {
     {
       time: '30',
       timeText: '30분',
-      onOff:'true'
+      status: true
     }, {
-      time: '30',
-      timeText: '30분',
-      onOff:'true'
+      time: '60',
+      timeText: '1시간',
+      status:false
     }, {
-      time: '30',
-      timeText: '30분',
-      onOff:'true'
+      time: '120',
+      timeText: '2시간',
+      status:false
     }, {
-      time: '30',
-      timeText: '30분',
-      onOff:'true'
+      time: '180',
+      timeText: '3시간',
+      status:false
     }, {
-      time: '30',
-      timeText: '30분',
-      onOff:'true'
+      time: '240',
+      timeText: '4시간',
+      status:false
     }
   ];
 

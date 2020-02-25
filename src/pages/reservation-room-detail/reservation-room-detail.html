@@ -14,31 +14,26 @@
 
 
   <ion-item>
-    <ion-label color="primary" >예약 내용</ion-label>
+    <ion-label color="main" >예약 내용</ion-label>
     <ion-input type="text" value="주간미팅"></ion-input>
  </ion-item>
 
+    <!-- 리스트 -->
+    <ion-list>
+      <!-- 아이템 칼럼 -->
       <ion-item>
-        <ion-label color="primary" >예약 시간</ion-label>
-        <ion-label color="primary">체크</ion-label>
-     </ion-item>
+          <ion-label color="main">예약 시간</ion-label>
+          <div class='alarm-check' item-end>체크</div>
+        </ion-item>
+      <ion-item ion-item *ngFor="let item of items ; let i = index" (click)="nextPage(item.room)">
+        <!-- 아이템 설명 -->
+        <ion-label>{{item.timeText}}</ion-label>
+        <!-- 아이템 체크 -->
+        <ion-checkbox item-end [(ngModel)] = "item.status" color='main'></ion-checkbox>
+      </ion-item>
+    </ion-list>
 
-  <ion-list>
-    <button ion-item *ngFor="let item of items">
-  <ion-grid>
-    <!-- 첫 줄 -->
-    <ion-row>
-      <ion-col col-6>
-        <button ion-button block outline> {{item.time}}</button>
-      </ion-col>
-      <ion-col col-6>
-        <ion-checkbox color="dark" checked="true"></ion-checkbox>
-      </ion-col>
-    </ion-row>
-    </ion-grid>
-      
-    </button>
-  </ion-list>
+  
 
     <!-- 버튼 : 확인, 취소 -->
   <ion-grid>

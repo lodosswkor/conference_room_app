@@ -6,49 +6,58 @@
 -->
 <ion-header>
   <ion-navbar color='main'>
-    <ion-title>카이젠 예약</ion-title>
+    <ion-title>{{label}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-
   <!-- 버튼 : 날짜/년/월/일 -->
 
-        <!-- 회의실 헤더 -->
-        <ion-item>
-            <button (click)="nextPageDatePick()">날짜 년/월/일</button>
-       </ion-item>
+  <ion-content>
 
-      <!-- 회의실 헤더 -->
-   <ion-item>
-      <ion-label color="primary">예약 시간</ion-label>
-      <ion-label color="primary">예약 내용</ion-label>
-      <ion-label color="primary">예약자</ion-label>
-      <ion-label color="primary">예약현황</ion-label>
-   </ion-item>
+     <!-- 회의실 헤더 -->
+     <ion-item>
+          <a center color ='main' (click)="nextPageDatePick()">날짜 : {{date}}</a>
+     </ion-item>
 
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="nextPage(item.time)">
-  <ion-grid>
-    <!-- 첫 줄 -->
-    <ion-row>
-      <ion-col col-3>
-        <button ion-button block outline> {{ item.time }}</button>
-      </ion-col>
-      <ion-col col-3>
-        <button ion-button block outline>{{ item.text }}</button>
-      </ion-col>
-      <ion-col col-3>
-        <button ion-button block outline>{{ item.person }}</button>
-      </ion-col>
-      <ion-col col-3>
-        <button ion-button block outline>{{ item.onOff }}</button>
-      </ion-col>
-    </ion-row>
-    </ion-grid>
-      
-    </button>
-  </ion-list>
+    <!-- 리스트  -->
+    <ion-list>
+       <!-- 리스트 헤더 -->
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+              <button color='main' ion-button>예약시간</button>
+          </ion-col>
+          <ion-col col-3 color='main'>
+            <button color='main' ion-button>예약내용</button>
+            <!-- <ion-label color='main' ion-button block outline>예약내용</ion-label> -->
+          </ion-col>
+          <ion-col col-3>
+            <button color='main' ion-button>예약대상</button>
+            <!-- <ion-label color='main' ion-button block outline>예약자</ion-label> -->
+          </ion-col>
+          <ion-col col-3>
+            <button color='main' ion-button>예약현황</button>
+            <!-- <ion-label color='main'ion-button block outline>예약현황</ion-label> -->
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+      <ion-item ion-item *ngFor="let item of items ; let i = index" (click)="nextPage(item.time)">
+        <!-- 아이템 : 예약시간 -->
+        <div class='parent'>
+            <div class='item-text'>{{item.text}}</div>
+            <!-- 아이템 : 예약 내용 -->
+            <div class='item-note'>{{item.note}}</div>
+            <!-- 아이템 : 예약자 -->
+            <div class='item-person'>{{item.person}}</div>
+            <!-- 아이템 : 예약현황 -->
+            <div class='item-status'>{{item.status}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+  
+    </ion-content>
 
 </ion-content>

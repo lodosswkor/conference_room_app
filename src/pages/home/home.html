@@ -11,19 +11,21 @@
 
   <ion-content>
 
-  
-    <!-- 회의실 헤더 -->
+  <!-- 리스트 -->
+  <ion-list>
+    <!-- 아이템 칼럼 -->
     <ion-item>
-    <ion-label color="primary" >회의실 목록</ion-label>
-    <ion-label color="primary">알람 체크</ion-label>
+        <ion-label color="main">회의실 목록</ion-label>
+        <div class='alarm-check' item-end>알람 체크</div>
+      </ion-item>
+    <ion-item ion-item *ngFor="let item of items ; let i = index" (click)="nextPage(item.room)">
+      <!-- 아이템 설명 -->
+      <ion-label>{{item.room}}</ion-label>
+      <!-- 아이템 체크 -->
+      <ion-toggle  [(ngModel)] = "item.status" color='main'></ion-toggle>
     </ion-item>
-  
-    <!-- 회의실 목록 -->
-    <ion-list>
-      <button ion-item *ngFor="let item of items" (click)="nextPage(item)">
-        {{ item }}
-      </button>
-    </ion-list>
+  </ion-list>
+
   </ion-content>
 
 </ion-content>

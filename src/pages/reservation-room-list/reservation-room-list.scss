@@ -1,3 +1,37 @@
 page-reservation-room-list {
 
+    .parent {
+   
+    }
+
+    // 라벨
+    .label-1{
+        color: white;
+    }
+
+    // 리스트 아이템
+    .item-text {
+        font-style: italic;
+        float:left;
+        color : #42A5DE;
+        width:35%;
+        font-size: small;
+    }
+    .item-note {
+        float:left;
+        width:25%;
+        font-size: x-small;
+    }
+    .item-person {
+        float:left;
+        width:30%;
+        font-size: x-small;
+    }
+    .item-status {
+        text-align: center;
+        float:left;
+        width:10%;
+        color:white;
+        background-color:#42A5DE;
+    }
 }
