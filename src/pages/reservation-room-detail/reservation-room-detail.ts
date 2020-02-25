@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ReservationRoomListPage } from '../reservation-room-list/reservation-room-list';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ReservationRoomDetailPage page.
@@ -41,12 +43,24 @@ export class ReservationRoomDetailPage {
     }
   ];
 
+  // 날짜 선택으로 이동
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
     this.data = navParams.get('msg');
     console.log('after : ' + this.data);
 
   }
+
+  goBack() {
+    console.log("clicked : goBack()")
+    this.navCtrl.push(ReservationRoomListPage);
+  }
+
+  nextPage() {
+    console.log("clicked : nextPage()")
+    this.navCtrl.push(HomePage);
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservationRoomDetailPage');

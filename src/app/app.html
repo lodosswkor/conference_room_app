@@ -1,10 +1,13 @@
 <ion-menu [content]="content" type="overlay">
+
+  <!-- 홈 화면의 메뉴타이틀 -->
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color='main'>
+      <ion-title>사용자 메뉴</ion-title>
     </ion-toolbar>
   </ion-header>
 
+  <!-- 메뉴목록 -->
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">

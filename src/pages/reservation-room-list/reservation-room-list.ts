@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReservationRoomDetailPage } from '../reservation-room-detail/reservation-room-detail';
+import { FavPage } from '../fav/fav';
 
 /**
  * Generated class for the ReservationRoomListPage page.
@@ -70,5 +71,13 @@ export class ReservationRoomListPage {
     console.log("before : " + data);
     this.navCtrl.push(ReservationRoomDetailPage, {msg : data})
   }
+
+  nextPageDatePick(){
+    console.log("clicked : nextPageDatePick()");
+
+    // 클릭한 날짜 정보 전달
+    this.navCtrl.push(FavPage);  
+  }
+
 
 }

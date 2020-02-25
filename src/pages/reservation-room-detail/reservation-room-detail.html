@@ -5,9 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color = 'main'>
     <ion-title>회의실 예약</ion-title>
-  </ion-navbar>
+  </ion-navbar> 
 </ion-header>
 
 <ion-content padding>
@@ -40,14 +40,14 @@
     </button>
   </ion-list>
 
+    <!-- 버튼 : 확인, 취소 -->
   <ion-grid>
-    <!-- 첫 줄 -->
     <ion-row>
       <ion-col col-6>
-        <button ion-button block outline>확인</button>
+        <button ion-button block outline (click)=nextPage()>확인</button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button block outline>취소</button>
+        <button ion-button block outline (click)=goBack()>취소</button>
       </ion-col>
     </ion-row>
     </ion-grid>

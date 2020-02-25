@@ -4,7 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { FavPage } from '../pages/fav/fav';
+import { SettingListPage } from '../pages/setting-list/setting-list';
+import { AlarmListPage } from '../pages/alarm-list/alarm-list';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,10 +23,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: '회의실 목록', component: HomePage },
+      { title: '알림 내역', component: AlarmListPage },
+      { title: '설정', component: SettingListPage }
     ];
-
   }
 
   initializeApp() {

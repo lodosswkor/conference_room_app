@@ -4,20 +4,28 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReservationRoomListPage } from '../pages/reservation-room-list/reservation-room-list';
 import { ReservationRoomDetailPage } from '../pages/reservation-room-detail/reservation-room-detail';
+import { FavPage } from '../pages/fav/fav';
+import { MycalComponent } from '../components/mycal/mycal';
+import { MonthNamePipe } from '../pipes/month-name/month-name';
+import { AlarmListPage } from '../pages/alarm-list/alarm-list';
+import { SettingListPage } from '../pages/setting-list/setting-list';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     ReservationRoomListPage,
-    ReservationRoomDetailPage
+    ReservationRoomDetailPage,
+    FavPage,
+    MycalComponent,
+    MonthNamePipe,
+    AlarmListPage,
+    SettingListPage
   ],
   imports: [
     BrowserModule,
@@ -27,9 +35,12 @@ import { ReservationRoomDetailPage } from '../pages/reservation-room-detail/rese
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     ReservationRoomListPage,
-    ReservationRoomDetailPage
+    ReservationRoomDetailPage,
+    FavPage,
+    MycalComponent,
+    AlarmListPage,
+    SettingListPage
   ],
   providers: [
     StatusBar,

@@ -5,16 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color='main'>
     <ion-title>카이젠 예약</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
+
+  <!-- 버튼 : 날짜/년/월/일 -->
+
+        <!-- 회의실 헤더 -->
+        <ion-item>
+            <button (click)="nextPageDatePick()">날짜 년/월/일</button>
+       </ion-item>
+
       <!-- 회의실 헤더 -->
    <ion-item>
-      <ion-label color="primary" >예약 시간</ion-label>
+      <ion-label color="primary">예약 시간</ion-label>
       <ion-label color="primary">예약 내용</ion-label>
       <ion-label color="primary">예약자</ion-label>
       <ion-label color="primary">예약현황</ion-label>
