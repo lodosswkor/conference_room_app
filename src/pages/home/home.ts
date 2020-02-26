@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ReservationRoomListPage } from '../reservation-room-list/reservation-room-list';
+import { OpenApiServiceProvider } from '../../providers/open-api-service/open-api-service';
 
 @Component({
   selector: 'page-home',
@@ -9,10 +10,10 @@ import { ReservationRoomListPage } from '../reservation-room-list/reservation-ro
 export class HomePage {
 
   items = [
-    { room: '커뮤니티1', status: true },
-    { room: '커뮤니티2', status: false },
-    { room: '커뮤니티3', status: false },
-    { room: '커뮤니티4', status: false },
+    { room: '커뮤니티룸1', status: true },
+    { room: '커뮤니티룸2', status: false },
+    { room: '커뮤니티룸3', status: false },
+    { room: '커뮤니티룸4', status: false },
     { room: '서바이벌', status: false },
     { room: '베이직', status: false },
     { room: 'BTS', status: false },
@@ -25,9 +26,18 @@ export class HomePage {
   ];
 
   item:any;
+  service: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, 
+    public openApiServiceProvider: OpenApiServiceProvider,
+    ) {
 
+      this.service = openApiServiceProvider;
+
+  }
+
+  test(){
+    console.log("test")
   }
 
   nextPage(data) {

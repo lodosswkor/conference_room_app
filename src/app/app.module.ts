@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReservationRoomListPage } from '../pages/reservation-room-list/reservation-room-list';
@@ -14,6 +15,7 @@ import { MycalComponent } from '../components/mycal/mycal';
 import { MonthNamePipe } from '../pipes/month-name/month-name';
 import { AlarmListPage } from '../pages/alarm-list/alarm-list';
 import { SettingListPage } from '../pages/setting-list/setting-list';
+import { OpenApiServiceProvider } from '../providers/open-api-service/open-api-service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { SettingListPage } from '../pages/setting-list/setting-list';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,7 +48,8 @@ import { SettingListPage } from '../pages/setting-list/setting-list';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    OpenApiServiceProvider
   ]
 })
 export class AppModule {}
