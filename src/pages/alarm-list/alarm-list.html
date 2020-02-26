@@ -16,16 +16,15 @@
 <ion-content padding>
 
       <!-- 회의실 헤더 -->
-      <ion-item>
-        <ion-label color="primary" >회의실 목록</ion-label>
-        <ion-label color="primary">알람 체크</ion-label>
-        </ion-item>
-      
         <!-- 회의실 목록 -->
         <ion-list>
+          <ion-item>
+            <ion-label color="main">알림내용</ion-label>
+            <div class="alarm-check" color="main" item-end>예약여부</div>
+          </ion-item>
           <button ion-item *ngFor="let item of items">
-            {{ item.text }}
-            {{ item.status }}
+            <div class='item'>{{ item.text }}</div>
+            <div class='item'>{{ item.status }}</div>
           </button>
 
         </ion-list>
