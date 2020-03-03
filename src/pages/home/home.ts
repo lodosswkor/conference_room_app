@@ -36,6 +36,14 @@ export class HomePage {
 
   }
 
+  post(){
+    this.service.post();
+  }
+
+  get(){
+    this.service.get(this.service.test);
+  }
+
   test(){
     console.log("test")
   }

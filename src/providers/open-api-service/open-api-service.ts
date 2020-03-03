@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map, catchError } from 'rxjs/operators';
@@ -30,6 +30,8 @@ export class OpenApiServiceProvider {
   lon = '&lon='
   q = 'q=';
   appid = '&appid=38d5fcf82539352d7fe5db34f0c88491';
+
+  test = 'http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=38d5fcf82539352d7fe5db34f0c88491';
 
   // post() {
 
@@ -65,38 +67,84 @@ export class OpenApiServiceProvider {
 
   // }
 
+  get(url) {
+
+    console.log('get');
+    return new Promise(resolve => {
+      this.observable = this.http.get(url);
+      this.observable.subscribe(data => {
+        resolve(data);
+      });
+    }).then(data => {
+
+      this.dataToString = JSON.stringify(data); // 문자열 변환
+      console.log(this.dataToString);
+
+      this.data = data // 데이터 받기
+
+      this.setItem(this.data); // JSON 데이터 넘김
+
+    });
+
+  }
+
   post() {
 
     console.log('post');
 
-    this.data = {
-      title: "조길상",
-      date: "2020-02-26",
-      userName: "조길상",
-      roomName: "커뮤니티룸2",
-      sTime: "15:00",
-      eTime: "16:00"
-    };
+    // this.data = {
+    //   title: "조길상",
+    //   date: "2020-02-26",
+    //   userName: "조길상",
+    //   roomName: "커뮤니티룸2",
+    //   sTime: "15:00",
+    //   eTime: "16:00"
+    // };
 
-    return new Promise((resolve, reject) => {
-      this.observable = this.http.post('http://15.165.187.77:8080/res' + '/insert',
-        JSON.stringify(this.data), {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    this.http.post('http://15.165.187.77:8080/res/insert', 
+    {
+      title : "조길상",
+      date : "2020-02-27",
+      userName : "조길상",
+      roomName : "커뮤니티룸2",
+      sTime : "16:00",
+      eTime : "17:00"
+    },{
+      headers: {
+        'Content-Type': 'application/json'
       }
-      );
-      this.observable.subscribe(data => {
-        resolve(data);
-        //console.log(data);
-      }, (err) => {
-        reject(err);
-        //console.log(err);
-      });
-    }).then(data => {
-
-      console.log(data);
+    }).subscribe((response) => {
+      console.log(response);
     });
+
+
+
+    // return new Promise((resolve, reject) => {
+    //   this.observable = this.http.post('http://15.165.187.77:8080/res/insert',
+    //     {
+    //       title: "조길상",
+    //       date: "2020-02-26",
+    //       userName: "조길상",
+    //       roomName: "커뮤니티룸3",
+    //       sTime: "14:00",
+    //       eTime: "15:00"
+    //     }, {
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     }
+    //   }
+    //   );
+    //   this.observable.subscribe(data => {
+    //     resolve(data);
+    //     //console.log(data);
+    //   },(err) => {
+    //     reject(err);
+    //     //console.log(err);
+    //   });
+    // }).then(data => {
+
+    //   console.log(data);
+    // });
 
   }
 
