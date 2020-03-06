@@ -1,4 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http';
+import { HttpClient } from "@angular/common/http"; //HttpClient 추가한다.
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map, catchError } from 'rxjs/operators';
@@ -14,77 +16,117 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class OpenApiServiceProvider {
 
-  constructor(public http: HttpClient) {
+  observable: Observable<Object>;
+  roomData: any;
+
+  domain: string = 'http://localhost:3000';
+  path: string = '/api';
+
+  constructor(public http: HTTP, public httpClient: HttpClient) {
     console.log('Hello OpenApiServiceProvider Provider');
   }
 
-  observable: Observable<Object>;
+  registerToken(token) {
 
-  data: any; // JSON 데이터
-  dataToString: string; // JSON데이터 -> String 변환
+    var url = 'http://localhost:3000/api/setUsers/token=' + token;
 
-  items: string[] = []; // 아이템 리스트
-
-  url = 'http://api.openweathermap.org/data/2.5/weather?';
-  lat = '?lat='
-  lon = '&lon='
-  q = 'q=';
-  appid = '&appid=38d5fcf82539352d7fe5db34f0c88491';
-
-  test = 'http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=38d5fcf82539352d7fe5db34f0c88491';
-
-  // post() {
-
-  //   console.log('post');
-
-  //   this.data = {
-  //     title: "조길상",
-  //     date: "2020-02-26",
-  //     userName: "조길상",
-  //     roomName: "커뮤니티룸2",
-  //     sTime: "15:00",
-  //     eTime: "16:00"
-  //   };
-
-  //   return new Promise((resolve, reject) => {
-  //     this.http.post('http://15.165.187.77:8080/res' + '/insert',
-  //       JSON.stringify(this.data), {
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       }
-  //     }
-  //     ).subscribe(data => {
-  //         resolve(data);
-  //         console.log(data);
-  //       }, (err) => {
-  //         reject(err);
-  //         console.log(err);
-  //       });
-  //   }).then(data => {
-
-  //     console.log(data);
-  //   });
-
-  // }
-
-  get(url) {
-
-    console.log('get');
+    // 서비스에 코드 추가
     return new Promise(resolve => {
-      this.observable = this.http.get(url);
+      this.observable = this.httpClient.get(url);
       this.observable.subscribe(data => {
         resolve(data);
       });
     }).then(data => {
+      console.log(data);
+    });
 
-      this.dataToString = JSON.stringify(data); // 문자열 변환
-      console.log(this.dataToString);
+  }
 
-      this.data = data // 데이터 받기
+  getReservation(date) {
+    var url = 'http://localhost:3000/api/getReservation';
 
-      this.setItem(this.data); // JSON 데이터 넘김
+    // 서비스에 코드 추가
+    // EX : date = '2020-02-26'
+    return new Promise(resolve => {
+      this.observable = this.httpClient.get(url,
+        {
+          params: {
+            date: date
+          }
+        }
+      );
+      this.observable.subscribe(data => {
+        resolve(data);
+      });
+    }).then(data => {
+      console.log(data);
+    });
+
+  }
+
+  setReservation() {
+    var url = 'http://localhost:3000/api/setReservation';
+
+    // 서비스에 코드 추가
+    return new Promise(resolve => {
+      this.observable = this.httpClient.get(url,
+        {
+          params: {
+            title: '주간회의',
+            date: '2020-02-26',
+            userName: '조길상',
+            roomName: '커뮤니티룸2',
+            startTime: '15:00',
+            endTime: '16:00',
+            token: 'test'
+          }
+        }
+      );
+      this.observable.subscribe(data => {
+        resolve(data);
+      });
+    }).then(data => {
+      console.log(data);
+    });
+
+  }
+
+  getRooms() {
+
+    // var url = 'http://localhost:3000/api/getRooms';
+    var url = 'http://ec2-3-14-249-213.us-east-2.compute.amazonaws.com:3000/api/getRooms';
+
+    // 서비스에 코드 추가
+    return new Promise(resolve => {
+      this.observable = this.httpClient.get(url);
+      this.observable.subscribe(data => {
+        resolve(data);
+      });
+    }).then(data => {
+      console.log(data);
+      this.roomData = data // 데이터 받기
+      console.log(this.roomData);
 
     });
+  }
+
+  get() {
+
+    this.http.get('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=e9a29b293e27414b333b8e7c47663cc7', {}, {})
+      .then(data => {
+
+        console.log(data.status);
+        console.log(data.data); // data received by server
+        console.log(data.headers);
+
+      })
+      .catch(error => {
+
+        console.log(error.status);
+        console.log(error.error); // error message as string
+        console.log(error.headers);
+
+      });
 
   }
 
@@ -101,82 +143,6 @@ export class OpenApiServiceProvider {
     //   eTime: "16:00"
     // };
 
-    this.http.post('http://15.165.187.77:8080/res/insert', 
-    {
-      title : "조길상",
-      date : "2020-02-27",
-      userName : "조길상",
-      roomName : "커뮤니티룸2",
-      sTime : "16:00",
-      eTime : "17:00"
-    },{
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).subscribe((response) => {
-      console.log(response);
-    });
-
-
-
-    // return new Promise((resolve, reject) => {
-    //   this.observable = this.http.post('http://15.165.187.77:8080/res/insert',
-    //     {
-    //       title: "조길상",
-    //       date: "2020-02-26",
-    //       userName: "조길상",
-    //       roomName: "커뮤니티룸3",
-    //       sTime: "14:00",
-    //       eTime: "15:00"
-    //     }, {
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     }
-    //   }
-    //   );
-    //   this.observable.subscribe(data => {
-    //     resolve(data);
-    //     //console.log(data);
-    //   },(err) => {
-    //     reject(err);
-    //     //console.log(err);
-    //   });
-    // }).then(data => {
-
-    //   console.log(data);
-    // });
-
   }
-
-  getJsonFromApi(url) {
-
-    return new Promise(resolve => {
-      this.observable = this.http.get(url);
-      this.observable.subscribe(data => {
-        resolve(data);
-      });
-    }).then(data => {
-
-      this.dataToString = JSON.stringify(data); // 문자열 변환
-      console.log(this.dataToString);
-
-      this.data = data // 데이터 받기
-
-      this.setItem(this.data); // JSON 데이터 넘김
-
-    });
-
-  }
-
-
-  // 아이템 설정
-  setItem(data) {
-    this.items[0] = data.coord.lon; // 위도
-    this.items[1] = data.coord.lat; // 경도
-    // this.items[2] = this.getCalc(data.main.temp); // 온도
-    this.items[3] = data.main.humidity; // 습도 %
-    this.items[4] = data.clouds.all; // 구름양 %
-  }
-
 
 }
