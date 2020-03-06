@@ -5,7 +5,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http';
+import { HttpClientModule} from "@angular/common/http";
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReservationRoomListPage } from '../pages/reservation-room-list/reservation-room-list';
@@ -16,6 +18,10 @@ import { MonthNamePipe } from '../pipes/month-name/month-name';
 import { AlarmListPage } from '../pages/alarm-list/alarm-list';
 import { SettingListPage } from '../pages/setting-list/setting-list';
 import { OpenApiServiceProvider } from '../providers/open-api-service/open-api-service';
+import { Device } from '@ionic-native/device';
+
+import { FCM } from '@ionic-native/fcm';
+
 
 @NgModule({
   declarations: [
@@ -31,8 +37,9 @@ import { OpenApiServiceProvider } from '../providers/open-api-service/open-api-s
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicModule.forRoot(MyApp)
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +56,11 @@ import { OpenApiServiceProvider } from '../providers/open-api-service/open-api-s
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    OpenApiServiceProvider
+    OpenApiServiceProvider,
+    Device,
+    HTTP,
+    FCM
+    
   ]
 })
 export class AppModule {}
