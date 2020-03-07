@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReservationRoomListPage } from '../reservation-room-list/reservation-room-list';
 import { HomePage } from '../home/home';
+import { OpenApiServiceProvider } from '../../providers/open-api-service/open-api-service';
 
 /**
  * Generated class for the ReservationRoomDetailPage page.
@@ -17,7 +18,13 @@ import { HomePage } from '../home/home';
 })
 export class ReservationRoomDetailPage {
 
-  data:any='';
+  startTime: any = '';
+  roomName: any = '';
+  date: any = '';
+
+  title: any = '';
+  userName: any = '';
+  service: any;
 
   private items = [
     {
@@ -27,28 +34,57 @@ export class ReservationRoomDetailPage {
     }, {
       time: '60',
       timeText: '1시간',
-      status:false
+      status: false
     }, {
       time: '120',
       timeText: '2시간',
-      status:false
+      status: false
     }, {
       time: '180',
       timeText: '3시간',
-      status:false
+      status: false
     }, {
       time: '240',
       timeText: '4시간',
-      status:false
+      status: false
     }
   ];
 
+
   // 날짜 선택으로 이동
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public openApiServiceProvider: OpenApiServiceProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
 
-    this.data = navParams.get('msg');
-    console.log('after : ' + this.data);
+    this.service = openApiServiceProvider;
 
+    this.roomName = navParams.get('roomName');
+    this.startTime = navParams.get('startTime');
+    this.date = navParams.get('date');
+
+    console.log('after page: ' + this.roomName);
+    console.log('after page: ' + this.startTime);
+    console.log('after page: ' + this.date);
+
+  }
+
+  setReservation() {
+
+    // check 값에서 endTime을 받아온다.
+    // for문을 돌린다.
+
+    var json = {
+      title: this.title,
+      date: this.date,
+      userName: this.userName,
+      roomName: this.roomName,
+      startTime: this.startTime,
+      endTime: this.startTime,
+      token: ''
+    }
+    console.log(json);
+
+    this.service.setReservation(json);
   }
 
   goBack() {

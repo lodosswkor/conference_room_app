@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar color='main'>
-    <ion-title>{{label}}</ion-title>
+    <ion-title>{{roomName}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -43,16 +43,16 @@
           </ion-col>
         </ion-row>
         </ion-grid>
-      <ion-item ion-item *ngFor="let item of items ; let i = index" (click)="nextPage(item.time)">
+      <ion-item ion-item *ngFor="let item of service.reservationsData ; let i = index" (click)="nextPage(item.startTime)">
         <!-- 아이템 : 예약시간 -->
         <div class='parent'>
-            <div class='item-text'>{{item.text}}</div>
+            <div class='item-text'>{{item.startTime}} ~ {{item.endTime}}</div>
             <!-- 아이템 : 예약 내용 -->
-            <div class='item-note'>{{item.note}}</div>
+            <div class='item-note'>{{item.title}}</div>
             <!-- 아이템 : 예약자 -->
-            <div class='item-person'>{{item.person}}</div>
+            <div class='item-person'>{{item.userName}}</div>
             <!-- 아이템 : 예약현황 -->
-            <div class='item-status'>{{item.status}}</div>
+            <div class='item-isUsed'>{{item.isUsed}}</div>
         </div>
       </ion-item>
     </ion-list>

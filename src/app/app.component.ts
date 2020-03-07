@@ -45,7 +45,7 @@ export class MyApp {
   checkPlatform() {
     // 스마트폰
     if(this.platform.is('android') || this.platform.is('ios')) {
-
+      console.log('this is android or ios');
       // FCM 설정
       this.initFCM();
       

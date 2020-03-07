@@ -62,7 +62,7 @@ export class HomePage {
   }
 
   nextPage(data) {
-    this.navCtrl.push(ReservationRoomListPage, { msg: data })
+    this.navCtrl.push(ReservationRoomListPage, { roomName: data })
   }
 
   // 토글 (true false)

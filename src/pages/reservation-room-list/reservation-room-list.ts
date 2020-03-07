@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReservationRoomDetailPage } from '../reservation-room-detail/reservation-room-detail';
 import { FavPage } from '../fav/fav';
 import { stringify } from '@angular/core/src/util';
+import { OpenApiServiceProvider } from '../../providers/open-api-service/open-api-service';
 
 /**
  * Generated class for the ReservationRoomListPage page.
@@ -19,222 +20,45 @@ import { stringify } from '@angular/core/src/util';
 export class ReservationRoomListPage {
 
   // 화면의 타이틀
-  label: string = '';
+  roomName: string = '';
+
+  // 오늘 날짜
+  // EX : 2020-02-25 ( YYYY-MM-DD )
   date: string = '2020-02-25'
 
-  label_3: string = '예약자 '
+  service: any;
 
   // used for an example of ngFor and navigation
-  private items = [
-    {
-      text: '08:00 ~ 08:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '08:30 ~ 09:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '09:00 ~ 09:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '09:30 ~ 10:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '10:00 ~ 10:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '10:30 ~ 11:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '11:00 ~ 11:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '11:30 ~ 12:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '12:00 ~ 12:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '12:30 ~ 13:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '13:00 ~ 13:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '13:30 ~ 14:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '14:00 ~ 14:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '14:30 ~ 15:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    }, {
-      text: '15:00 ~ 15:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    },{
-      text: '15:30 ~ 16:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    },{
-      text: '16:00 ~ 16:30',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    },{
-      text: '16:30 ~ 17:00',
-      note: 'test',
-      person: 'test',
-      status: 'on',
-      timeStartHour: '1',
-      timeStartMin: '2',
-      timeFinishHour: '3',
-      timeFinishMin: '4',
-    },
-  ];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-
-    this.label = navParams.get('msg');
-    console.log("after : " + this.label);
-
-    var hour = 8;
-    var min = 0;
-
-    // 반복문 진행
-    // for (var i = 0; i < 18; i++) {
-
-    //   // 짝수 
-    //   if (i % 2 == 0) {
-    //     min = 0;
-    //     this.items.push({
-    //       text: '08:00 ~ 08:30',
-    //       note: '',
-    //       person: '',
-    //       status: 'on',
-    //       timeStartHour: stringify(hour),
-    //       timeStartMin: stringify(min),
-    //       timeFinishHour: stringify(hour + 1),
-    //       timeFinishMin: stringify(min + 30),
-    //     })
-    //   }
-    //   // 홀수
-    //   else {
-    //     min = 30;
-
-    //     this.items.push({
-    //       text: '08:00 ~ 08:30',
-    //       note: '',
-    //       person: '',
-    //       status: 'on',
-    //       timeStartHour: stringify(hour),
-    //       timeStartMin: stringify(min),
-    //       timeFinishHour: stringify(hour + 1),
-    //       timeFinishMin: stringify(min + 30),
-    //     })
-    //     hour = hour + 1;
-    //   }
-    // }
+  // id, title, date, userName, roomeName, startTime, endTime, token
 
 
+  constructor(public openApiServiceProvider: OpenApiServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
+
+    // 생성자
+    // 라벨 명 받기(라벨명 = roomName)
+    this.roomName = navParams.get('roomName');
+    console.log("after : " + this.roomName);
+    this.service = openApiServiceProvider;
+
+    // 날짜 최신화
+    // (YYYY-MM-DD)
+    var today = new Date();
+    var year = (today.getFullYear()).toString();
+    var month = (today.getMonth() + 1).toString();
+    var day = (today.getDate()).toString();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+
+    var strToday = [year, month, day].join('-');
+
+    this.date = strToday;
+    console.log(strToday);
+    console.log(this.date);
+
+    this.service.getReservation(this.date, this.roomName);
 
 
   }
@@ -247,7 +71,11 @@ export class ReservationRoomListPage {
   // JSON 아이템 자체를 넣어서
   nextPage(data) {
     console.log("before : " + data);
-    this.navCtrl.push(ReservationRoomDetailPage, { msg: data })
+    this.navCtrl.push(ReservationRoomDetailPage, { 
+      date: this.date ,
+      roomName : this.roomName ,
+      startTime : data ,
+    })
   }
 
   nextPageDatePick() {
