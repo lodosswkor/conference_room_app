@@ -3,15 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>회의실 목록</ion-title>
+    <ion-title>Eland Conferences</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
   <ion-content>
 
-    <button  ion-button test (click) = getReservation()>test</button>
+  <!-- <button  ion-button test (click) = getReservation()>test</button> -->
 
   <!-- 리스트 -->
   <ion-list>
@@ -24,10 +22,10 @@
       <!-- 아이템 설명 -->
       <ion-label>{{item.name}}</ion-label>
       <!-- 아이템 체크 -->
-      <!-- <ion-toggle  [(ngModel)] = "item[i].isUsed" color='main'></ion-toggle> -->
+      <ion-toggle item-end [(ngModel)]='service.pushData[i]' (ionChange) = 'setPush(i, service.pushData[i])'></ion-toggle>
     </ion-item>
   </ion-list>
 
-  </ion-content>
+
 
 </ion-content>

@@ -21,6 +21,8 @@ import { OpenApiServiceProvider } from '../providers/open-api-service/open-api-s
 import { Device } from '@ionic-native/device';
 
 import { FCM } from '@ionic-native/fcm';
+import { IonicStorageModule } from '@ionic/storage';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { FCM } from '@ionic-native/fcm';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
 
   ],
   bootstrap: [IonicApp],
@@ -59,7 +62,8 @@ import { FCM } from '@ionic-native/fcm';
     OpenApiServiceProvider,
     Device,
     HTTP,
-    FCM
+    FCM,
+    AndroidPermissions
     
   ]
 })

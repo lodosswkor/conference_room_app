@@ -14,37 +14,61 @@
 
 
   <ion-item>
-    <ion-label color="main" >예약 내용</ion-label>
+    <ion-label color="main" stacked>예약 내용</ion-label>
     <ion-input type="text" [(ngModel)]="title"></ion-input>
  </ion-item>
 
  <ion-item>
-  <ion-label color="main" >예약자</ion-label>
+  <ion-label color="main" stacked>예약자</ion-label>
   <ion-input type="text" [(ngModel)]="userName"></ion-input>
 </ion-item>
 
     <!-- 리스트 -->
     <ion-list>
-      <!-- 아이템 칼럼 -->
-      <ion-item>
-          <ion-label color="main">예약 시간</ion-label>
-          <div class='alarm-check' item-end>체크</div>
-        </ion-item>
-      <ion-item ion-item *ngFor="let item of items ; let i = index" (click)="nextPage(item.room)">
+
+      <ion-item ion-item *ngFor="let item of items ; let i = index">
         <!-- 아이템 설명 -->
         <ion-label>{{item.timeText}}</ion-label>
         <!-- 아이템 체크 -->
-        <ion-checkbox item-end [(ngModel)] = "item.status" color='main'></ion-checkbox>
+        <ion-checkbox item-end [(ngModel)] = "item.status" color='main' (ionChange) = changeStatus(i)></ion-checkbox>
       </ion-item>
     </ion-list>
 
-  
+    <ion-list radio-group [(ngModel)]="checkTime" (ionChange)=changeRadio()>
+
+      <ion-item>
+        <ion-label color="main" stacked>예약 시간</ion-label>
+        <!-- <div class='alarm-check' item-end>체크</div> -->
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>30분</ion-label>
+        <ion-radio value="30"></ion-radio>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>1시간</ion-label>
+        <ion-radio value="60"></ion-radio>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>1시간30분</ion-label>
+        <ion-radio value="90"></ion-radio>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>2시간</ion-label>
+        <ion-radio value="120"></ion-radio>
+      </ion-item>
+    
+    </ion-list>
+
 
     <!-- 버튼 : 확인, 취소 -->
   <ion-grid>
     <ion-row>
       <ion-col col-6>
-        <button ion-button block outline (click)=setReservation()>확인</button>
+        <button ion-button block color='main' (click)=confirmReservation()>확인</button>
       </ion-col>
       <ion-col col-6>
         <button ion-button block outline (click)=goBack()>취소</button>

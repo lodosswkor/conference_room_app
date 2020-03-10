@@ -25,7 +25,7 @@
       <!-- 아이템 설명 -->
       <div class="item-note" item-end>{{item.note}}</div>
       <!-- 아이템 체크 -->
-      <ion-toggle *ngIf = "item.note === ''" checked='true'></ion-toggle>
+      <ion-toggle *ngIf = "item.note === ''" [(ngModel)]='item.isUsed' (ionChange) = 'setPush(item.isUsed)'></ion-toggle>
     </ion-item>
   </ion-list>
 

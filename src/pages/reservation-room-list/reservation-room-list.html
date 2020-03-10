@@ -10,7 +10,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+
 
   <!-- 버튼 : 날짜/년/월/일 -->
 
@@ -18,46 +18,46 @@
 
      <!-- 회의실 헤더 -->
      <ion-item>
-          <a center color ='main' (click)="nextPageDatePick()">날짜 : {{date}}</a>
+          <a center color ='#42A5DE' (click)="nextPageDatePick()">날짜 : {{service.date}}</a>
      </ion-item>
+
 
     <!-- 리스트  -->
     <ion-list>
        <!-- 리스트 헤더 -->
-      <ion-grid>
-        <ion-row>
-          <ion-col col-3>
-              <button color='main' ion-button>예약시간</button>
-          </ion-col>
-          <ion-col col-3 color='main'>
-            <button color='main' ion-button>예약내용</button>
-            <!-- <ion-label color='main' ion-button block outline>예약내용</ion-label> -->
-          </ion-col>
-          <ion-col col-3>
-            <button color='main' ion-button>예약대상</button>
-            <!-- <ion-label color='main' ion-button block outline>예약자</ion-label> -->
-          </ion-col>
-          <ion-col col-3>
-            <button color='main' ion-button>예약현황</button>
-            <!-- <ion-label color='main'ion-button block outline>예약현황</ion-label> -->
-          </ion-col>
-        </ion-row>
-        </ion-grid>
-      <ion-item ion-item *ngFor="let item of service.reservationsData ; let i = index" (click)="nextPage(item.startTime)">
+
+        <table id ="header" style="width:100%" >
+          <tr>
+            <th>예약시간</th>
+            <th>예약내용</th> 
+            <th>예약대상</th>
+            <th>예약현황</th>
+          </tr>
+        </table>
+
+        <hr class="my-hr1">
+
+      <ion-item ion-item *ngFor="let item of service.reservationsData ; let i = index" (click)="nextPage(item.startTime, item.isUsed)">
         <!-- 아이템 : 예약시간 -->
-        <div class='parent'>
-            <div class='item-text'>{{item.startTime}} ~ {{item.endTime}}</div>
-            <!-- 아이템 : 예약 내용 -->
-            <div class='item-note'>{{item.title}}</div>
-            <!-- 아이템 : 예약자 -->
-            <div class='item-person'>{{item.userName}}</div>
-            <!-- 아이템 : 예약현황 -->
-            <div class='item-isUsed'>{{item.isUsed}}</div>
-        </div>
+
+        <table id ="body" style="width:100%" >
+          <colgroup>
+            <col width="25%" />
+            <col width="25%" />
+            <col width="25%" />
+            <col width="25%" />
+        </colgroup>
+          <tr>
+            <td><div class='item-time'>{{item.startTime}} ~ {{item.endTime}}</div></td>
+            <td><div class='item-title'>{{item.title}}</div></td> 
+            <td><div class='item-username'>{{item.userName}}</div></td>
+            <td><div class='item-isusedtrue' *ngIf = 'item.isUsed'>사용중</div></td>
+            <td><div class='item-isusedfalse' *ngIf = '!item.isUsed'></div></td>
+          </tr>
+        </table>
       </ion-item>
     </ion-list>
 
-  
-    </ion-content>
+
 
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ReservationRoomDetailPage } from '../reservation-room-detail/reservation-room-detail';
 import { FavPage } from '../fav/fav';
 import { stringify } from '@angular/core/src/util';
@@ -32,7 +32,7 @@ export class ReservationRoomListPage {
   // id, title, date, userName, roomeName, startTime, endTime, token
 
 
-  constructor(public openApiServiceProvider: OpenApiServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl : AlertController, public openApiServiceProvider: OpenApiServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
 
     // 생성자
     // 라벨 명 받기(라벨명 = roomName)
@@ -58,8 +58,9 @@ export class ReservationRoomListPage {
     console.log(strToday);
     console.log(this.date);
 
+    // 날짜 공유
+    this.service.date = this.date;
     this.service.getReservation(this.date, this.roomName);
-
 
   }
 
@@ -67,9 +68,24 @@ export class ReservationRoomListPage {
     console.log('ionViewDidLoad ReservationRoomListPage');
   }
 
+  presentAlert(title, msg) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['확인']
+    });
+    alert.present();
+  }
+
   // 데이터를 2개 넣어서 보내던가
   // JSON 아이템 자체를 넣어서
-  nextPage(data) {
+  nextPage(data, isUsed) {
+
+    if(isUsed) {
+      this.presentAlert('예약 거부','이미 예약되있습니다.');
+      return;
+    }
+
     console.log("before : " + data);
     this.navCtrl.push(ReservationRoomDetailPage, { 
       date: this.date ,
@@ -82,7 +98,7 @@ export class ReservationRoomListPage {
     console.log("clicked : nextPageDatePick()");
 
     // 클릭한 날짜 정보 전달
-    this.navCtrl.push(FavPage);
+    this.navCtrl.push(FavPage, {roomName : this.roomName});
   }
 
 
