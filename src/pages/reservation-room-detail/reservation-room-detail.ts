@@ -27,6 +27,7 @@ export class ReservationRoomDetailPage {
   backUpstartTime: string = '';
   endTime: string = '';
   roomName: any = '';
+  roomId: number = 0;
   date: any = '';
 
   title: any = '';
@@ -50,6 +51,7 @@ export class ReservationRoomDetailPage {
     this.startTime = navParams.get('startTime');
     this.backUpstartTime = this.startTime;
     this.date = navParams.get('date');
+    this.roomId = navParams.get('roomId');
 
     this.startHour = Number(this.startTime.split(":")[0]);
     this.startMin = Number(this.startTime.split(":")[1]);
@@ -158,7 +160,8 @@ export class ReservationRoomDetailPage {
       roomName: this.roomName,
       startTime: startTime,
       endTime: endTime,
-      token: ''
+      token: '',
+      roomId: this.roomId
     }
     console.log(json);
 

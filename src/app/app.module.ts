@@ -23,6 +23,7 @@ import { Device } from '@ionic-native/device';
 import { FCM } from '@ionic-native/fcm';
 import { IonicStorageModule } from '@ionic/storage';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { LongPressModule } from 'ionic-long-press';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    LongPressModule
 
   ],
   bootstrap: [IonicApp],

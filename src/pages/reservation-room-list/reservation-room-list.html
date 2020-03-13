@@ -37,7 +37,14 @@
 
         <hr class="my-hr1">
 
-      <ion-item ion-item *ngFor="let item of service.reservationsData ; let i = index" (click)="nextPage(item.startTime, item.isUsed)">
+      <ion-item ion-item 
+      *ngFor="let item of service.reservationsData ; let i = index" 
+      (click)="nextPage(item.startTime, item.isUsed)"
+      ion-long-press [interval]="400" 
+      (onPressStart)="pressed()" 
+      (onPressing)="active()" 
+      (onPressEnd)="released()"
+      >
         <!-- 아이템 : 예약시간 -->
 
         <table id ="body" style="width:100%" >

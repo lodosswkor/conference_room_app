@@ -31,6 +31,7 @@ export class HomePage {
   item:any;
   service: any;
 
+
   constructor( public fcm : FCM,
     public storage : Storage, 
     public navCtrl: NavController, 
@@ -48,9 +49,6 @@ export class HomePage {
     this.service.getReservation('2020-02-26');
   }
 
-  setReservation(){
-    this.service.setReservation();
-  }
 
   post(){
     this.service.post();
@@ -64,8 +62,8 @@ export class HomePage {
     console.log("test")
   }
 
-  nextPage(data) {
-    this.navCtrl.push(ReservationRoomListPage, { roomName: data })
+  nextPage(data, id) {
+    this.navCtrl.push(ReservationRoomListPage, { roomName: data , roomId : id})
   }
 
   getPushChecked(roomName) {
@@ -85,9 +83,10 @@ export class HomePage {
 
   }
 
-  setPush(index, bool) {
+  setPush(id, bool) {
     console.log(bool);
-    const key = String(index);
+
+    const key = String(id);
 
     this.storage.set(key, bool);
 
@@ -100,5 +99,6 @@ export class HomePage {
     }
 
   }
+
 
 }

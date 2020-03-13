@@ -181,7 +181,8 @@ export class OpenApiServiceProvider {
             roomName: json.roomName,
             startTime: json.startTime,
             endTime: json.endTime,
-            token: json.token
+            token: json.token,
+            roomId: json.roomId,
           }
         }
       );
