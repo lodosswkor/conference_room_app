@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReservationRoomListPage } from '../reservation-room-list/reservation-room-list';
+import { OpenApiServiceProvider } from '../../providers/open-api-service/open-api-service';
 
 /**
  * Generated class for the FavPage page.
@@ -27,18 +28,32 @@ export class FavPage {
       date: 26
     }
   ];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  public date: string = '';
+  public backupDate: string = '';
+  public service:any;
+  public roomName :string = '';
+
+  constructor(public openApiServiceProvider : OpenApiServiceProvider,
+    public navCtrl: NavController, 
+    public navParams: NavParams) {
+
+      this.roomName = navParams.get('roomName');
+      console.log(this.roomName);
+      
+      this.service = openApiServiceProvider;
+      this.backupDate = this.service.date;
 
   }
 
   nextPage() {
-    console.log("clicked : nextPage()")
-    this.navCtrl.push(ReservationRoomListPage);
+    this.service.date = this.date;
+    this.service.getReservation(this.date, this.roomName);
+    this.navCtrl.pop();
   }
 
   goBack() {
-    console.log("clicked : goBack()")
-    this.navCtrl.push(ReservationRoomListPage);
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {
@@ -47,7 +62,20 @@ export class FavPage {
 
   onDaySelect(e) {
     console.log(e);
+
+    var year = String(e.year);
+    var month = String(e.month + 1);
+    var day = String(e.date);
+
+    if (month.length < 2)
+      month = '0' + month;
+
+    if (day.length < 2)
+      day = '0' + day;
+
+    this.date = [year , month , day].join("-");
   }
+
   onMonthSelect(e) {
     console.log(e);
   }

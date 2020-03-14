@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { ReservationRoomListPage } from '../reservation-room-list/reservation-room-list';
 import { OpenApiServiceProvider } from '../../providers/open-api-service/open-api-service';
 import { getSegmentsFromNavGroups } from 'ionic-angular/umd/navigation/url-serializer';
+import { Storage } from '@ionic/storage';
+import { FCM } from '@ionic-native/fcm';
 
 @Component({
   selector: 'page-home',
@@ -29,10 +31,12 @@ export class HomePage {
   item:any;
   service: any;
 
-  constructor(public navCtrl: NavController, 
+
+  constructor( public fcm : FCM,
+    public storage : Storage, 
+    public navCtrl: NavController, 
     public openApiServiceProvider: OpenApiServiceProvider,
     ) {
-
       this.service = openApiServiceProvider;
       this.service.getRooms();
   }
@@ -45,9 +49,6 @@ export class HomePage {
     this.service.getReservation('2020-02-26');
   }
 
-  setReservation(){
-    this.service.setReservation();
-  }
 
   post(){
     this.service.post();
@@ -61,18 +62,43 @@ export class HomePage {
     console.log("test")
   }
 
-  nextPage(data) {
-    this.navCtrl.push(ReservationRoomListPage, { roomName: data })
+  nextPage(data, id) {
+    this.navCtrl.push(ReservationRoomListPage, { roomName: data , roomId : id})
   }
 
-  // 토글 (true false)
-  // FCM 구독
-  togle(index) {
-    // if(this.items[index].isUsed){
-    //   this.items[index].isUsed=false;
-    // }else {
-    //   this.items[index].isUsed=true;
-    // }
+  getPushChecked(roomName) {
+    this.storage.get(roomName).then((val) => {
+        console.log(val);
+    });
+  }
+
+  setPushChecked(roomName, bool){
+
+    if(bool) {
+      this.storage.set(roomName, true);
+    }
+    else {
+      this.storage.set(roomName, false);
+    }
 
   }
+
+  setPush(id, bool) {
+    console.log(bool);
+
+    const key = String(id);
+
+    this.storage.set(key, bool);
+
+    if (bool) {
+      this.fcm.subscribeToTopic(key);
+      console.log('subscribeToTopic : ' + key);
+    } else {
+      this.fcm.unsubscribeFromTopic(key);
+      console.log('unsubscribeFromTopic : ' + key);
+    }
+
+  }
+
+
 }
